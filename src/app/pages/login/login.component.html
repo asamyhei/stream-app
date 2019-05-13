@@ -1,0 +1,19 @@
+<form (ngSubmit)="submit(formName)" [formGroup]="formName">
+  <app-hl-form-input [controlValidators]="[
+                        {hasError:'required', value:'field required'},
+                        {hasError:'email',value:'Email format only'}
+                     ]" [formName]="formName" controlName="emailInput" inputId="email"
+                     inputLabel="Email"
+                     inputType="email"></app-hl-form-input>
+
+
+  <app-hl-form-input [controlValidators]="[
+                        {hasError:'required', value:'field required'}
+                     ]" [formName]="formName" controlName="passwordInput" inputId="password"
+                     inputLabel="Password"
+                     inputType="password"></app-hl-form-input>
+
+  <button [disabled]="formName.invalid" class="btn btn-primary" type="submit">Submit</button>
+
+</form>
+<div>user: {{user | json}}</div>
