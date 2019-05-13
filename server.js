@@ -27,9 +27,22 @@ app.get("/api/seriesTree", function(req, res) {
   res.send(filteredTree);
 });
 
-app.get("/api/video/:path", function(req, res) {
+function getNodeByName(node, name){
+  var reduce = [].reduce;
+  function runner(result, node){
+    if(result || !node) return result;
+    return node.name === name && node || //is this the proper node?
+      runner(null, node.children) || //process this nodes children
+      reduce.call(Object(node), runner, result);  //maybe this is some ArrayLike Structure
+  }
+  return runner(null, node);
+}
 
-  const pathToVideo = req.param.path;
+
+app.get("/api/video/:path", function(req, res) {
+  const node = getNodeByName(filteredTree, req.params.path);
+
+  const pathToVideo = node.path;
   const stat = fs.statSync(pathToVideo);
   const fileSize = stat.size;
   const range = req.headers.range;
@@ -46,19 +59,20 @@ app.get("/api/video/:path", function(req, res) {
       "Accept-Ranges": "bytes",
       "Content-Length": chunksize,
       "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-      "Content-Type": "video/mp4",
+      "Content-Type": getMIME(node.extension),
     };
     res.writeHead(206, head);
     file.pipe(res);
   } else {
     const head = {
       "Content-Length": fileSize,
-      "Content-Type": "video/mp4",
+      "Content-Type": getMIME(node.extension),
     };
     res.writeHead(200, head);
     fs.createReadStream(pathToVideo).pipe(res);
   }
 });
+
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname + "/dist/stream-app/index.html"));
 });
@@ -73,3 +87,12 @@ httpServer.listen(8080, () => {
 httpsServer.listen(8443, () => {
   console.log("listening 8443");
 });
+
+function getMIME(extension) {
+  switch (extension) {
+    case '.mp4':
+      return 'video/mp4';
+    case '.mkv':
+      return 'video/x-matroska'
+  }
+}
