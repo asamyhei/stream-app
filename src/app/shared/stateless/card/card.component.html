@@ -5,9 +5,11 @@
       <app-card [node]="node"></app-card>
     </li>
   </ul>
+
+  <div *ngIf="isLoading">
+    <video id="videoPlayer" controls autoplay="autoplay">
+      <source src="http://192.168.1.29:8080/api/video/{{node.name}}">
+    </video>
+  </div>
 </div>
-<div *ngIf="isLoading">
-  <video id="videoPlayer" controls preload="none" loop="loop" autoplay="autoplay">
-    <source [src]="path" type="video/mp4">
-  </video>
-</div>
+

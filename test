@@ -1,2 +1,1 @@
-d
-
+Get-ChildItem -Filter '*.mkv' | % { &ffmpeg -i .\$($_.BaseName).mkv -f mp4 -vcodec libx264 -preset ultrafast -acodec aac .\$($_.BaseName).mp4 }
