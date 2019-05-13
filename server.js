@@ -13,7 +13,7 @@ const credentials = {key: privateKey, cert: certificate};
 
 
 const dirTree = require("directory-tree");
-const filteredTree = dirTree("../Series", {extensions: /\.(mkv|mp4|srt)$/});
+const filteredTree = dirTree("../Series", {extensions: /\.(mkv|mp4|m4v|srt)$/, exclude: /Anime|@eaDir/});
 
 app.use(cors());
 // Serve only the static files form the dist directory
