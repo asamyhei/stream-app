@@ -6909,7 +6909,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"node\">\n  <div>{{node.name}}</div>\n  <ul>\n    <li *ngFor=\"let node of node?.children\">\n      <app-card [node]=\"node\"></app-card>\n    </li>\n  </ul>\n</div>\n"
+module.exports = "<div *ngIf=\"node\">\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\n  <ul>\n    <li *ngFor=\"let node of node?.children\">\n      <app-card [node]=\"node\"></app-card>\n    </li>\n  </ul>\n</div>\n"
 
 /***/ }),
 
@@ -6936,12 +6936,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardComponent", function() { return CardComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 var CardComponent = /** @class */ (function () {
-    function CardComponent() {
+    function CardComponent(http) {
+        this.http = http;
     }
     CardComponent.prototype.ngOnInit = function () {
+    };
+    CardComponent.prototype.loadVideo = function (node) {
+        console.log(node);
+        this.http.get('http://localhost:8080/api/video', { params: { path: node.path } }).subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -6953,7 +6960,7 @@ var CardComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./card.component.html */ "./src/app/shared/stateless/card/card.component.html"),
             styles: [__webpack_require__(/*! ./card.component.sass */ "./src/app/shared/stateless/card/card.component.sass")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], CardComponent);
     return CardComponent;
 }());

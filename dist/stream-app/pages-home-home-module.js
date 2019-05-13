@@ -65,9 +65,7 @@ var HomeComponent = /** @class */ (function () {
         var _this = this;
         this.http.get('https://aqwarium.ddns.net:8443/api/seriesTree').subscribe(function (data) {
             _this.node = data;
-            console.log(_this.node);
         });
-        console.log(this.node);
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
