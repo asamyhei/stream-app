@@ -6909,7 +6909,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  card works!\n</p>\n"
+module.exports = "<div *ngIf=\"node\">\n  <div>{{node.name}}</div>\n  <ul>\n    <li *ngFor=\"let node of node?.children\">\n      <app-card [node]=\"node\"></app-card>\n    </li>\n  </ul>\n</div>\n"
 
 /***/ }),
 
@@ -6943,6 +6943,10 @@ var CardComponent = /** @class */ (function () {
     }
     CardComponent.prototype.ngOnInit = function () {
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CardComponent.prototype, "node", void 0);
     CardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-card',

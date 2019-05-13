@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,20 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   cards: object;
+  node: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
+    this.http.get('https://aqwarium.ddns.net:8443/api/seriesTree').subscribe(data => {
+      this.node = data;
+      console.log(this.node);
+    });
+
+    console.log(this.node);
+
+
   }
 
 }

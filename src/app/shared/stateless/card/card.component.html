@@ -1,3 +1,8 @@
-<p>
-  card works!
-</p>
+<div *ngIf="node">
+  <div>{{node.name}}</div>
+  <ul>
+    <li *ngFor="let node of node?.children">
+      <app-card [node]="node"></app-card>
+    </li>
+  </ul>
+</div>

@@ -26,7 +26,7 @@ var HomeRoute = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  This is home\r\n</p>\r\n\r\n<video controls id=\"videoPlayer\">\r\n  <source src=\"http://localhost:8080/video\" type=\"video/mp4\">\r\n  <track src=\"assets/\">\r\n</video>\r\n\r\n<app-card></app-card>\r\n"
+module.exports = "<p>\r\n  This is home\r\n</p>\r\n\r\n<app-card [node]=\"node\"></app-card>\r\n"
 
 /***/ }),
 
@@ -53,12 +53,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent() {
+    function HomeComponent(http) {
+        this.http = http;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.http.get('https://aqwarium.ddns.net:8443/api/seriesTree').subscribe(function (data) {
+            _this.node = data;
+            console.log(_this.node);
+        });
+        console.log(this.node);
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -66,7 +75,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/pages/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/pages/home/home.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], HomeComponent);
     return HomeComponent;
 }());
