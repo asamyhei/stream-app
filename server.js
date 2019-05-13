@@ -27,9 +27,9 @@ app.get("/api/seriesTree", function(req, res) {
   res.send(filteredTree);
 });
 
-app.get("/api/video", function(req, res) {
+app.get("/api/video/:path", function(req, res) {
 
-  const pathToVideo = req.query.path;
+  const pathToVideo = req.param.path;
   const stat = fs.statSync(pathToVideo);
   const fileSize = stat.size;
   const range = req.headers.range;

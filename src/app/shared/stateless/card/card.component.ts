@@ -10,6 +10,9 @@ export class CardComponent implements OnInit {
 
   @Input() node: any;
 
+  isLoading = false;
+  path: string;
+
   constructor(private http: HttpClient) {
   }
 
@@ -18,6 +21,11 @@ export class CardComponent implements OnInit {
 
   loadVideo(node: any) {
     console.log(node);
-    this.http.get('http://localhost:8080/api/video', {params: {path: node.path}}).subscribe(data => console.log(data), err => console.log(err));
+    this.http.get(`http://localhost:8080/api/video/${node.name}`).subscribe();
+    this.isLoading = true;
+    //this.path = `https://aqwarium.ddns.net:8443/api/video/${(node.path)}`;
+    console.log(this.path);
   }
+
+
 }

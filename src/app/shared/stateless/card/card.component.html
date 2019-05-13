@@ -6,3 +6,8 @@
     </li>
   </ul>
 </div>
+<div *ngIf="isLoading">
+  <video id="videoPlayer" controls preload="none" loop="loop" autoplay="autoplay">
+    <source [src]="path" type="video/mp4">
+  </video>
+</div>
