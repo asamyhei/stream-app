@@ -1,5 +1,5 @@
 <div *ngIf="node">
-  <div>{{node.name}}</div>
+  <button class="btn btn-outline-info" (click)="loadVideo(node)">{{node.name}}</button>
   <ul>
     <li *ngFor="let node of node?.children">
       <app-card [node]="node"></app-card>
