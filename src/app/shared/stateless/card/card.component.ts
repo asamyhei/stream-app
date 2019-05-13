@@ -21,7 +21,7 @@ export class CardComponent implements OnInit {
 
   loadVideo(node: any) {
     console.log(node);
-    this.http.get(`http://localhost:8080/api/video/${node.name}`).subscribe();
+    this.http.get(`http://192.168.1.29:8080/api/video/${node.name}`).subscribe();
     this.isLoading = true;
     //this.path = `https://aqwarium.ddns.net:8443/api/video/${(node.path)}`;
     console.log(this.path);

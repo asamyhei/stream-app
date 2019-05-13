@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('https://aqwarium.ddns.net:8443/api/seriesTree').subscribe(data => {
+    this.http.get('http://192.168.1.29:8080/api/seriesTree').subscribe(data => {
       this.node = data;
     });
   }
