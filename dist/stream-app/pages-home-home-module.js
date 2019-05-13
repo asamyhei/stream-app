@@ -63,7 +63,7 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.get('https://aqwarium.ddns.net:8443/api/seriesTree').subscribe(function (data) {
+        this.http.get('http://192.168.1.29:8080/api/seriesTree').subscribe(function (data) {
             _this.node = data;
         });
     };

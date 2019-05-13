@@ -6909,7 +6909,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"node\">\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\n  <ul>\n    <li *ngFor=\"let node of node?.children\">\n      <app-card [node]=\"node\"></app-card>\n    </li>\n  </ul>\n</div>\n"
+module.exports = "<div *ngIf=\"node\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\r\n  <ul>\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n</div>\r\n<div *ngIf=\"isLoading\">\r\n  <video id=\"videoPlayer\" controls preload=\"none\" loop=\"loop\" autoplay=\"autoplay\">\r\n    <source [src]=\"path\" type=\"video/mp4\">\r\n  </video>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -6943,12 +6943,16 @@ __webpack_require__.r(__webpack_exports__);
 var CardComponent = /** @class */ (function () {
     function CardComponent(http) {
         this.http = http;
+        this.isLoading = false;
     }
     CardComponent.prototype.ngOnInit = function () {
     };
     CardComponent.prototype.loadVideo = function (node) {
         console.log(node);
-        this.http.get('http://localhost:8080/api/video', { params: { path: node.path } }).subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); });
+        this.http.get("http://192.168.1.29:8080/api/video/" + node.name).subscribe();
+        this.isLoading = true;
+        //this.path = `https://aqwarium.ddns.net:8443/api/video/${(node.path)}`;
+        console.log(this.path);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
