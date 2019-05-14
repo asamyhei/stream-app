@@ -94,7 +94,7 @@ httpsServer.listen(8443, () => {
 function getMIME(extension) {
   switch (extension) {
     case ".mkv":
-      return "video/x-matroska";
+      return "video/x-matrosknode a";
     default:
       return "video/mp4";
   }
