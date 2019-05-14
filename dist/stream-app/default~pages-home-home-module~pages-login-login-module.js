@@ -6909,7 +6909,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"node\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\r\n  <ul>\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n</div>\r\n<div *ngIf=\"isLoading\">\r\n  <video id=\"videoPlayer\" controls preload=\"none\" loop=\"loop\" autoplay=\"autoplay\">\r\n    <source [src]=\"path\" type=\"video/mp4\">\r\n  </video>\r\n</div>\r\n"
+module.exports = "<div *ngIf=\"node\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\r\n  <ul>\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n\r\n  <div *ngIf=\"isLoading\">\r\n    <video id=\"videoPlayer\" controls autoplay=\"autoplay\">\r\n      <source [src]=\"path(node)\">\r\n    </video>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -6937,6 +6937,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -6948,11 +6950,11 @@ var CardComponent = /** @class */ (function () {
     CardComponent.prototype.ngOnInit = function () {
     };
     CardComponent.prototype.loadVideo = function (node) {
-        console.log(node);
-        this.http.get("http://192.168.1.29:8080/api/video/" + node.name).subscribe();
+        console.log(node.name);
         this.isLoading = true;
-        //this.path = `https://aqwarium.ddns.net:8443/api/video/${(node.path)}`;
-        console.log(this.path);
+    };
+    CardComponent.prototype.path = function (node) {
+        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/video/" + node.name;
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),

@@ -530,7 +530,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    API_URL: 'http://localhost:4000/'
+    API_URL_HTTP: 'http://aqwarium.ddns.net:8080',
+    API_URL_HTTPS: 'https://aqwarium.ddns.net:8443'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -577,7 +578,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Arthur\Documents\Projets\stream-app\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\arsamy\Documents\stream-app\src\main.ts */"./src/main.ts");
 
 
 /***/ })

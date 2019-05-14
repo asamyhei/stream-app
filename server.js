@@ -16,7 +16,7 @@ const dirTree = require("directory-tree");
 const filteredTree = dirTree("../Series", {extensions: /\.(mkv|mp4|m4v|srt)$/, exclude: /Anime|@eaDir/});
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
@@ -27,17 +27,20 @@ app.get("/api/seriesTree", function(req, res) {
   res.send(filteredTree);
 });
 
-function getNodeByName(node, name){
+function getNodeByName(node, name) {
   var reduce = [].reduce;
-  function runner(result, node){
-    if(result || !node) return result;
+
+  function runner(result, node) {
+    if (result || !node) {
+      return result;
+    }
     return node.name === name && node || //is this the proper node?
       runner(null, node.children) || //process this nodes children
       reduce.call(Object(node), runner, result);  //maybe this is some ArrayLike Structure
   }
+
   return runner(null, node);
 }
-
 
 app.get("/api/video/:path", function(req, res) {
   const node = getNodeByName(filteredTree, req.params.path);
@@ -90,9 +93,9 @@ httpsServer.listen(8443, () => {
 
 function getMIME(extension) {
   switch (extension) {
-    case '.mp4':
-      return 'video/mp4';
-    case '.mkv':
-      return 'video/x-matroska'
+    case ".mkv":
+      return "video/x-matroska";
+    default:
+      return "video/mp4";
   }
 }

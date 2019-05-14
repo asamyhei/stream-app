@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:4000/'
+  API_URL_HTTP: 'http://aqwarium.ddns.net:8080',
+  API_URL_HTTPS: 'https://aqwarium.ddns.net:8443'
 };
 
 /*

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('http://192.168.1.29:8080/api/seriesTree').subscribe(data => {
+    this.http.get(`${environment.API_URL_HTTPS}/api/seriesTree`).subscribe(data => {
       this.node = data;
     });
   }

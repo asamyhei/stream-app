@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-card',
@@ -11,7 +12,7 @@ export class CardComponent implements OnInit {
   @Input() node: any;
 
   isLoading = false;
-  path: string;
+
 
   constructor(private http: HttpClient) {
   }
@@ -21,8 +22,11 @@ export class CardComponent implements OnInit {
 
   loadVideo(node: any) {
     console.log(node.name)
-    //this.http.get(`http://192.168.1.29:8080/api/video/${node.name}`).subscribe();
     this.isLoading = true;
+  }
+
+  path(node) {
+    return `${environment.API_URL_HTTPS}/video/${node.name}`;
   }
 
 
