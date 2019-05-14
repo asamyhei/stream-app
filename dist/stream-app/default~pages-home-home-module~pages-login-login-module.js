@@ -6909,7 +6909,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"node\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"loadVideo(node)\">{{node.name}}</button>\r\n  <ul>\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n\r\n  <div *ngIf=\"isLoading\">\r\n    <video id=\"videoPlayer\" controls autoplay=\"autoplay\">\r\n      <source [src]=\"path(node)\">\r\n    </video>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div *ngIf=\"node\">\r\n  <a class=\"btn btn-outline-warning\" *ngIf=\"node.type !== 'file'\" (click)=\"openChildren()\">{{node.name}}</a>\r\n  <a class=\"btn btn-outline-info\" href=\"{{pathFile(node)}}\" *ngIf=\"node.type === 'file'\">{{node.name}}</a>\r\n  <ul *ngIf=\"openSub\">\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -6946,6 +6946,7 @@ var CardComponent = /** @class */ (function () {
     function CardComponent(http) {
         this.http = http;
         this.isLoading = false;
+        this.openSub = false;
     }
     CardComponent.prototype.ngOnInit = function () {
     };
@@ -6954,7 +6955,13 @@ var CardComponent = /** @class */ (function () {
         this.isLoading = true;
     };
     CardComponent.prototype.path = function (node) {
-        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/video/" + node.name;
+        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/video/" + node.name;
+    };
+    CardComponent.prototype.pathFile = function (node) {
+        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/videoFile/" + node.name;
+    };
+    CardComponent.prototype.openChildren = function () {
+        this.openSub = !this.openSub;
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),

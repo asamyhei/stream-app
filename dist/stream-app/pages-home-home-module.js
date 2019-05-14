@@ -26,7 +26,7 @@ var HomeRoute = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  This is home\r\n</p>\r\n\r\n<app-card [node]=\"node\"></app-card>\r\n"
+module.exports = "<app-card [node]=\"node\"></app-card>\r\n"
 
 /***/ }),
 

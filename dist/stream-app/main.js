@@ -228,7 +228,7 @@ var CoreModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  footer works!\r\n</p>\r\n"
+module.exports = ""
 
 /***/ }),
 
@@ -340,7 +340,7 @@ var ForbiddenComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"nav navbar-light bg-light py-2\">\r\n  <a class=\"nav-item nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\r\n  <a class=\"nav-item nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\r\n</nav>\r\n"
+module.exports = "<!--\r\n<nav class=\"nav navbar-light bg-light py-2\">\r\n  <a class=\"nav-item nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home</a>\r\n  <a class=\"nav-item nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\r\n</nav>\r\n-->\r\n"
 
 /***/ }),
 
