@@ -12,6 +12,7 @@ export class CardComponent implements OnInit {
   @Input() node: any;
 
   isLoading = false;
+  private openSub = false;
 
 
   constructor(private http: HttpClient) {
@@ -21,13 +22,20 @@ export class CardComponent implements OnInit {
   }
 
   loadVideo(node: any) {
-    console.log(node.name)
+    console.log(node.name);
     this.isLoading = true;
   }
 
   path(node) {
-    return `${environment.API_URL_HTTPS}/video/${node.name}`;
+    return `${environment.API_URL_HTTPS}/api/video/${node.name}`;
+  }
+
+  pathFile(node) {
+    return `${environment.API_URL_HTTPS}/api/videoFile/${node.name}`;
   }
 
 
+  openChildren() {
+    this.openSub = !this.openSub;
+  }
 }

@@ -1,15 +1,10 @@
 <div *ngIf="node">
-  <button class="btn btn-outline-info" (click)="loadVideo(node)">{{node.name}}</button>
-  <ul>
+  <a class="btn btn-outline-warning" *ngIf="node.type !== 'file'" (click)="openChildren()">{{node.name}}</a>
+  <a class="btn btn-outline-info" href="{{pathFile(node)}}" *ngIf="node.type === 'file'">{{node.name}}</a>
+  <ul *ngIf="openSub">
     <li *ngFor="let node of node?.children">
       <app-card [node]="node"></app-card>
     </li>
   </ul>
-
-  <div *ngIf="isLoading">
-    <video id="videoPlayer" controls autoplay="autoplay">
-      <source [src]="path(node)">
-    </video>
-  </div>
 </div>
 
