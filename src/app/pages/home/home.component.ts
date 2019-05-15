@@ -15,8 +15,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get(`${environment.API_URL_HTTPS}/api/seriesTree`).subscribe(data => {
-      this.nodeService.loadChildren([data]);
+    this.http.get(`${environment.API_URL_HTTPS}/api/tree`).subscribe(data => {
+      console.log(data);
+      this.nodeService.loadChildren([data[0], data[1]]);
     });
     this.nodeService.currentNode$.subscribe(node => this.nodes = node);
   }

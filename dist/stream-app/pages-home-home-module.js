@@ -68,8 +68,9 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/seriesTree").subscribe(function (data) {
-            _this.nodeService.loadChildren([data]);
+        this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/tree").subscribe(function (data) {
+            console.log(data);
+            _this.nodeService.loadChildren([data[0], data[1]]);
         });
         this.nodeService.currentNode$.subscribe(function (node) { return _this.nodes = node; });
     };
