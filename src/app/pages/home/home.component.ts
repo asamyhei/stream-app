@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {NodeService} from '../../shared/services/node.service';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +9,15 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  node: any;
+  nodes: any[];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private nodeService: NodeService) {
   }
 
   ngOnInit() {
     this.http.get(`${environment.API_URL_HTTPS}/api/seriesTree`).subscribe(data => {
-      this.node = data;
+      this.nodeService.loadChildren([data]);
     });
+    this.nodeService.currentNode$.subscribe(node => this.nodes = node);
   }
 }

@@ -26,7 +26,7 @@ var HomeRoute = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-card [node]=\"node\"></app-card>\r\n"
+module.exports = "<div class=\"container\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"nodeService.loadParent()\">back</button>\r\n  <app-card class=\"\" [nodes]=\"nodes\"></app-card>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -55,19 +55,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _shared_services_node_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/services/node.service */ "./src/app/shared/services/node.service.ts");
+
 
 
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(http) {
+    function HomeComponent(http, nodeService) {
         this.http = http;
+        this.nodeService = nodeService;
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/seriesTree").subscribe(function (data) {
-            _this.node = data;
+            _this.nodeService.loadChildren([data]);
         });
+        this.nodeService.currentNode$.subscribe(function (node) { return _this.nodes = node; });
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -75,7 +79,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/pages/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/pages/home/home.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _shared_services_node_service__WEBPACK_IMPORTED_MODULE_4__["NodeService"]])
     ], HomeComponent);
     return HomeComponent;
 }());

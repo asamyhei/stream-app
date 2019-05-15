@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
+import {NodeService} from '../../services/node.service';
 
 @Component({
   selector: 'app-card',
@@ -9,33 +10,23 @@ import {environment} from '../../../../environments/environment';
 })
 export class CardComponent implements OnInit {
 
-  @Input() node: any;
+  @Input() nodes: any[];
 
-  isLoading = false;
-  private openSub = false;
-
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private nodeService: NodeService) {
   }
 
   ngOnInit() {
-  }
-
-  loadVideo(node: any) {
-    console.log(node.name);
-    this.isLoading = true;
-  }
-
-  path(node) {
-    return `${environment.API_URL_HTTPS}/api/video/${node.name}`;
+//    this.nodeService.currentNode$.subscribe(node => this.node = node);
   }
 
   pathFile(node) {
     return `${environment.API_URL_HTTPS}/api/videoFile/${node.name}`;
   }
 
-
-  openChildren() {
-    this.openSub = !this.openSub;
+  openChildren(node) {
+    if (node.children) {
+      console.log(node);
+      this.nodeService.loadChildren(node.children);
+    }
   }
 }

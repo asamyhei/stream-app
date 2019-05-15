@@ -6812,6 +6812,52 @@ var ReactiveFormsModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/node.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/shared/services/node.service.ts ***!
+  \*************************************************/
+/*! exports provided: NodeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NodeService", function() { return NodeService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+var NodeService = /** @class */ (function () {
+    function NodeService() {
+        this.node = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        this.currentNode$ = this.node.asObservable();
+        this.nodeList = [];
+    }
+    NodeService.prototype.loadChildren = function (children) {
+        this.node.next(children);
+        this.nodeList.push(children);
+    };
+    NodeService.prototype.loadParent = function () {
+        console.log(this.nodeList);
+        if (this.nodeList.length > 1) {
+            this.node.next(this.nodeList[this.nodeList.length - 2]);
+            this.nodeList.pop();
+        }
+    };
+    NodeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], NodeService);
+    return NodeService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/user.service.ts":
 /*!*************************************************!*\
   !*** ./src/app/shared/services/user.service.ts ***!
@@ -6909,7 +6955,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"node\">\r\n  <a class=\"btn btn-outline-warning\" *ngIf=\"node.type !== 'file'\" (click)=\"openChildren()\">{{node.name}}</a>\r\n  <a class=\"btn btn-outline-info\" href=\"{{pathFile(node)}}\" *ngIf=\"node.type === 'file'\">{{node.name}}</a>\r\n  <ul *ngIf=\"openSub\">\r\n    <li *ngFor=\"let node of node?.children\">\r\n      <app-card [node]=\"node\"></app-card>\r\n    </li>\r\n  </ul>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"card col-3 my-2 border-0\" *ngFor=\"let node of nodes\" (click)=\"openChildren(node)\">\r\n    <a class=\"card-header text-truncate\" *ngIf=\"node.type !== 'file'\" (click)=\"openChildren(node)\">{{node.name}}</a>\r\n    <a class=\"card-header\" href=\"{{pathFile(node)}}\" *ngIf=\"node.type === 'file'\">{{node.name}}</a>\r\n    <img *ngIf=\"node.type !== 'file'\" class=\"card-img-top\"\r\n         src=\"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16abb6370b9%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16abb6370b9%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.1953125%22%20y%3D%2296.196875%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E\"\r\n         alt=\"Card image cap\">\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -6938,42 +6984,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _services_node_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/node.service */ "./src/app/shared/services/node.service.ts");
+
 
 
 
 
 var CardComponent = /** @class */ (function () {
-    function CardComponent(http) {
+    function CardComponent(http, nodeService) {
         this.http = http;
-        this.isLoading = false;
-        this.openSub = false;
+        this.nodeService = nodeService;
     }
     CardComponent.prototype.ngOnInit = function () {
-    };
-    CardComponent.prototype.loadVideo = function (node) {
-        console.log(node.name);
-        this.isLoading = true;
-    };
-    CardComponent.prototype.path = function (node) {
-        return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/video/" + node.name;
+        //    this.nodeService.currentNode$.subscribe(node => this.node = node);
     };
     CardComponent.prototype.pathFile = function (node) {
         return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/videoFile/" + node.name;
     };
-    CardComponent.prototype.openChildren = function () {
-        this.openSub = !this.openSub;
+    CardComponent.prototype.openChildren = function (node) {
+        if (node.children) {
+            console.log(node);
+            this.nodeService.loadChildren(node.children);
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CardComponent.prototype, "node", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
+    ], CardComponent.prototype, "nodes", void 0);
     CardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-card',
             template: __webpack_require__(/*! ./card.component.html */ "./src/app/shared/stateless/card/card.component.html"),
             styles: [__webpack_require__(/*! ./card.component.sass */ "./src/app/shared/stateless/card/card.component.sass")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_node_service__WEBPACK_IMPORTED_MODULE_4__["NodeService"]])
     ], CardComponent);
     return CardComponent;
 }());

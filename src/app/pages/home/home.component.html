@@ -1,1 +1,4 @@
-<app-card [node]="node"></app-card>
+<div class="container">
+  <button class="btn btn-outline-info" (click)="nodeService.loadParent()">back</button>
+  <app-card class="" [nodes]="nodes"></app-card>
+</div>
