@@ -1,4 +1,9 @@
 <div class="container">
-  <button class="btn btn-outline-info" (click)="nodeService.loadParent()">back</button>
+
+  <button class="btn btn-outline-info" (click)="nodeService.loadParent()">Retour</button>
+
+<!--  <div *ngFor="let name of nodeService.nodeListName" class="d-inline-flex">
+    <div (click)="loadNode(name)" style="cursor: pointer">{{name}}</div>   >
+  </div-->
   <app-card class="" [nodes]="nodes"></app-card>
 </div>

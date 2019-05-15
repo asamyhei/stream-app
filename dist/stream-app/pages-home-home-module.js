@@ -26,7 +26,7 @@ var HomeRoute = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <button class=\"btn btn-outline-info\" (click)=\"nodeService.loadParent()\">back</button>\r\n  <app-card class=\"\" [nodes]=\"nodes\"></app-card>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n\r\n  <button class=\"btn btn-outline-info\" (click)=\"nodeService.loadParent()\">Retour</button>\r\n\r\n<!--  <div *ngFor=\"let name of nodeService.nodeListName\" class=\"d-inline-flex\">\r\n    <div (click)=\"loadNode(name)\" style=\"cursor: pointer\">{{name}}</div>   >\r\n  </div-->\r\n  <app-card class=\"\" [nodes]=\"nodes\"></app-card>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -69,10 +69,17 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/tree").subscribe(function (data) {
-            console.log(data);
-            _this.nodeService.loadChildren([data[0], data[1]]);
+            _this.nodeService.loadChildren(data);
         });
         this.nodeService.currentNode$.subscribe(function (node) { return _this.nodes = node; });
+    };
+    HomeComponent.prototype.loadNode = function (name) {
+        var index = this.nodeService.nodeListName.indexOf(name);
+        this.nodeService.loadChildren(this.nodeService.nodeList[index]);
+        if (index !== this.nodeService.nodeListName.length) {
+            this.nodeService.nodeListName = this.nodeService.nodeListName.slice(0, index);
+            this.nodeService.nodeList = this.nodeService.nodeList.slice(0, index);
+        }
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

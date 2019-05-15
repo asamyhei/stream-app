@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, ReplaySubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
+  nodeListName = [];
+  nodeList: any[] = [];
+
   private node = new BehaviorSubject(null);
   currentNode$ = this.node.asObservable();
-
-  private nodeList: any[] = [];
 
   constructor() {
   }
@@ -23,6 +24,7 @@ export class NodeService {
     if (this.nodeList.length > 1) {
       this.node.next(this.nodeList[this.nodeList.length - 2]);
       this.nodeList.pop();
+      this.nodeListName.pop();
     }
   }
 }

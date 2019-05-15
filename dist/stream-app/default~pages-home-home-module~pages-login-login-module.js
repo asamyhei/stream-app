@@ -6830,9 +6830,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var NodeService = /** @class */ (function () {
     function NodeService() {
+        this.nodeListName = [];
+        this.nodeList = [];
         this.node = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
         this.currentNode$ = this.node.asObservable();
-        this.nodeList = [];
     }
     NodeService.prototype.loadChildren = function (children) {
         this.node.next(children);
@@ -6843,6 +6844,7 @@ var NodeService = /** @class */ (function () {
         if (this.nodeList.length > 1) {
             this.node.next(this.nodeList[this.nodeList.length - 2]);
             this.nodeList.pop();
+            this.nodeListName.pop();
         }
     };
     NodeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -6955,7 +6957,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"card col-3 my-2 border-0\" *ngFor=\"let node of nodes\" (click)=\"openChildren(node)\">\r\n    <a class=\"card-header text-truncate\" *ngIf=\"node.type !== 'file'\" (click)=\"openChildren(node)\">{{node.name}}</a>\r\n    <a class=\"card-header text-truncate\" href=\"{{pathFile(node)}}\" *ngIf=\"node.type === 'file'\">{{node.name}}</a>\r\n    <img *ngIf=\"node.type !== 'file'\" class=\"card-img-top\"\r\n         src=\"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16abb6370b9%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16abb6370b9%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.1953125%22%20y%3D%2296.196875%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E\"\r\n         alt=\"Card image cap\">\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"card my-2 border-0 col-sm-1 col-md-3\" *ngFor=\"let node of nodes\" (click)=\"openChildren(node)\" [class.col-md-6]=\"node.type === 'file'\">\r\n    <a class=\"card-header text-truncate\" *ngIf=\"node.type !== 'file'\" (click)=\"openChildren(node)\">{{node.name}}</a>\r\n    <a class=\"card-header text-truncate\" href=\"{{pathFile(node)}}\" *ngIf=\"node.type === 'file'\">{{node.name}}</a>\r\n    <img *ngIf=\"node.type !== 'file'\" class=\"card-img-top\"\r\n         src=\"data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16abb6370b9%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16abb6370b9%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.1953125%22%20y%3D%2296.196875%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E\"\r\n         alt=\"Card image cap\">\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -6996,7 +6998,6 @@ var CardComponent = /** @class */ (function () {
         this.nodeService = nodeService;
     }
     CardComponent.prototype.ngOnInit = function () {
-        //    this.nodeService.currentNode$.subscribe(node => this.node = node);
     };
     CardComponent.prototype.pathFile = function (node) {
         return _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL_HTTPS + "/api/videoFile/" + node.name;
@@ -7005,6 +7006,7 @@ var CardComponent = /** @class */ (function () {
         if (node.children) {
             console.log(node);
             this.nodeService.loadChildren(node.children);
+            this.nodeService.nodeListName.push(node.name);
         }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
