@@ -16,7 +16,6 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit() {
-//    this.nodeService.currentNode$.subscribe(node => this.node = node);
   }
 
   pathFile(node) {
@@ -27,6 +26,7 @@ export class CardComponent implements OnInit {
     if (node.children) {
       console.log(node);
       this.nodeService.loadChildren(node.children);
+      this.nodeService.nodeListName.push(node.name);
     }
   }
 }

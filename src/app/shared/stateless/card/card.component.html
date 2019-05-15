@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="card col-3 my-2 border-0" *ngFor="let node of nodes" (click)="openChildren(node)">
+  <div class="card my-2 border-0 col-sm-1 col-md-3" *ngFor="let node of nodes" (click)="openChildren(node)" [class.col-md-6]="node.type === 'file'">
     <a class="card-header text-truncate" *ngIf="node.type !== 'file'" (click)="openChildren(node)">{{node.name}}</a>
     <a class="card-header text-truncate" href="{{pathFile(node)}}" *ngIf="node.type === 'file'">{{node.name}}</a>
     <img *ngIf="node.type !== 'file'" class="card-img-top"
