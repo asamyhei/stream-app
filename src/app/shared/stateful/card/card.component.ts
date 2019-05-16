@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {NodeService} from '../../services/node.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
-import {NodeService} from '../../services/node.service';
 
 @Component({
   selector: 'app-card',
@@ -12,7 +12,7 @@ export class CardComponent implements OnInit {
 
   @Input() nodes: any[];
 
-  constructor(private http: HttpClient, private nodeService: NodeService) {
+  constructor(private nodeService: NodeService) {
   }
 
   ngOnInit() {
